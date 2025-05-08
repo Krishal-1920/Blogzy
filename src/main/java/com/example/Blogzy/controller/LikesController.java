@@ -1,0 +1,29 @@
+package com.example.Blogzy.controller;
+
+import com.example.Blogzy.model.LikesFeedModel;
+import com.example.Blogzy.service.LikesService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/feedLikes")
+public class LikesController {
+
+    private final LikesService likesService;
+
+    @PostMapping("/likeAPost")
+    public ResponseEntity<LikesFeedModel> likes(@RequestParam String usersId,
+                                                @RequestParam String feedId){
+        return ResponseEntity.ok(likesService.likePost(usersId, feedId));
+    }
+
+//
+//    @GetMapping("/totalLikes/{usersId}")
+//    public ResponseEntity<LikesResponseModel> totalLikes(@RequestParam String usersId,
+//                                                         @RequestParam String feedId) {
+//        return ResponseEntity.ok(likesService.getTotalLikes(usersId, feedId));
+//    }
+
+}
