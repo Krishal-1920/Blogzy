@@ -29,8 +29,8 @@ public class LikesController {
         return ResponseEntity.ok(likesService.getTotalLikes(feedId));
     }
 
-    @GetMapping("/getLikedFeeds/{usersId}")
-    public ResponseEntity<List<LikedFeedModel>> getLikedFeeds(@PathVariable String usersId) {
+    @GetMapping("/getLikedFeeds")
+    public ResponseEntity<List<LikedFeedModel>> getLikedFeeds(@RequestParam String usersId) {
         return ResponseEntity.ok(likesService.getLikedFeeds(usersId));
     }
 }
