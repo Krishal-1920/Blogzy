@@ -19,7 +19,7 @@ public class LikesController {
         return ResponseEntity.ok(likesService.likePost(usersId, feedId));
     }
 
-//
+
 //    @GetMapping("/totalLikes/{usersId}")
 //    public ResponseEntity<LikesResponseModel> totalLikes(@RequestParam String usersId,
 //                                                         @RequestParam String feedId) {

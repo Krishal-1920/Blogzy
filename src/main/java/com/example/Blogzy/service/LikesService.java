@@ -11,6 +11,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class LikesService {
@@ -49,9 +51,9 @@ public class LikesService {
         return model;
     }
 
-
+//
 //    public LikesResponseModel getTotalLikes(String usersId, String feedId) {
-//        List<String> username = LikesRepository.findUsernameByFeedId(feedId);
+//        List<String> username = likesRepository.findUsernameByFeedId(feedId);
 //        return new LikesResponseModel(username.size(), username);
 //    }
 
