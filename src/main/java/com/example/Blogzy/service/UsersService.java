@@ -1,6 +1,7 @@
 package com.example.Blogzy.service;
 
 import com.example.Blogzy.entity.Users;
+import com.example.Blogzy.exceptions.DataNotFoundException;
 import com.example.Blogzy.mapper.UsersMapper;
 import com.example.Blogzy.model.UsersModel;
 import com.example.Blogzy.repository.UsersRepository;
@@ -26,13 +27,13 @@ public class UsersService {
 
     public UsersModel viewProfile(String usersId) {
         Users usersById = usersRepository.findById(usersId)
-                .orElseThrow(() -> new RuntimeException("User Not Found"));
+                .orElseThrow(() -> new DataNotFoundException("User Not Found"));
         return usersMapper.usersToUsersModel(usersById);
     }
 
     public UsersModel updateUser(String usersId, UsersModel usersModel) {
         Users userById = usersRepository.findById(usersId)
-                .orElseThrow(() -> new RuntimeException("User Not Found"));
+                .orElseThrow(() -> new DataNotFoundException("User Not Found"));
         Users users = usersMapper.updateUsersModel(usersModel, userById);
         users = usersRepository.save(users);
         return usersMapper.usersToUsersModel(users);
@@ -41,7 +42,7 @@ public class UsersService {
 
     public void deleteUser(String userId) {
         Users user = usersRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new DataNotFoundException("User not found"));
         usersRepository.delete(user);
     }
 

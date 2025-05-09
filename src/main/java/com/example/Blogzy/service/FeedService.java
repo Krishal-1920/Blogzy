@@ -2,6 +2,8 @@ package com.example.Blogzy.service;
 
 import com.example.Blogzy.entity.Feed;
 import com.example.Blogzy.entity.Users;
+import com.example.Blogzy.exceptions.DataNotFoundException;
+import com.example.Blogzy.exceptions.DataValidationException;
 import com.example.Blogzy.mapper.FeedMapper;
 import com.example.Blogzy.model.FeedModel;
 import com.example.Blogzy.model.ParentFeedModel;
@@ -26,9 +28,9 @@ public class FeedService {
 
         // Find the user by email
         Users users = usersRepository.findById(usersId)
-                .orElseThrow(() -> new RuntimeException("User Not Found"));
+                .orElseThrow(() -> new DataNotFoundException("User Not Found"));
         if (users == null) {
-            throw new RuntimeException("User Not Found with email: ");
+            throw new DataValidationException("User Not Found: ");
         }
 
         // Create a new Feed entity and set the content

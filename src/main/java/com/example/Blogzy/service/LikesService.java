@@ -3,6 +3,8 @@ package com.example.Blogzy.service;
 import com.example.Blogzy.entity.Feed;
 import com.example.Blogzy.entity.Likes;
 import com.example.Blogzy.entity.Users;
+import com.example.Blogzy.exceptions.DataNotFoundException;
+import com.example.Blogzy.exceptions.DataValidationException;
 import com.example.Blogzy.model.LikedFeedModel;
 import com.example.Blogzy.model.LikesOnFeedModel;
 import com.example.Blogzy.model.LikesResponseModel;
@@ -31,14 +33,14 @@ public class LikesService {
     @Transactional
     public LikesOnFeedModel likePost(String usersId, String feedId) {
         Users users = usersRepository.findById(usersId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new DataNotFoundException("User not found"));
 
         Feed feed = feedRepository.findById(feedId)
-                .orElseThrow(() -> new RuntimeException("Feed not found"));
+                .orElseThrow(() -> new DataNotFoundException("Feed not found"));
 
         boolean alreadyLiked = likesRepository.existsByUsersUsersIdAndFeedFeedId(users.getUsersId(), feedId);
         if (alreadyLiked) {
-            throw new RuntimeException("You already liked this post.");
+            throw new DataValidationException("You already liked this post.");
         }
 
         Likes like = new Likes();
