@@ -23,14 +23,11 @@ public class Feed {
     private LocalDateTime createdAt;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "users_id")
     private Users users;
-//
-//    @OneToMany(mappedBy = "feed", cascade = CascadeType.ALL)
-//    private List<FeedLike> feedLikes;
-//
-//    @OneToMany(mappedBy = "feed", cascade = CascadeType.ALL)
-//    private List<FeedComment> feedComments;
+
+    @OneToMany(mappedBy = "feed", cascade = CascadeType.ALL)
+    private List<Likes> Likes;
 
     @PrePersist
     public void onCreate() {

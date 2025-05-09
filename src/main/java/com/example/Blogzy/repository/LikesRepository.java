@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface LikesRepository extends JpaRepository<Likes, String> {
 
-    boolean existsByUsersUserIdAndFeedFeedId(String usersId, String feedId);
+    boolean existsByUsersUsersIdAndFeedFeedId(String usersId, String feedId);
 
-//    List<String> findUsernameByFeedId(String feedId);
+    List<Likes> findByFeedFeedId(String feedId);
 }

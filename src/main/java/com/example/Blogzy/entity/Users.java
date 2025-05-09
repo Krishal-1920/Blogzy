@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
@@ -12,13 +13,13 @@ public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "user_id", updatable = false, nullable = false)
-    private String userId;
+    @Column(name = "users_id", updatable = false, nullable = false)
+    private String usersId;
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(name = "last_name", nullable=false)
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
     @Column(name = "username", unique = true)
@@ -42,13 +43,10 @@ public class Users {
     @Column(name = "bio")
     private String bio;
 
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-//    private List<Feed> feeds;
-//
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-//    private List<FeedLike> feedLikes;
-//
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-//    private List<FeedComment> feedComments;
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
+    private List<Feed> feeds;
+
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
+    private List<Likes> likes;
 
 }

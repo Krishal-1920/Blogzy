@@ -1,6 +1,7 @@
 package com.example.Blogzy.controller;
 
 import com.example.Blogzy.model.LikesFeedModel;
+import com.example.Blogzy.model.LikesResponseModel;
 import com.example.Blogzy.service.LikesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +21,10 @@ public class LikesController {
     }
 
 
-//    @GetMapping("/totalLikes/{usersId}")
-//    public ResponseEntity<LikesResponseModel> totalLikes(@RequestParam String usersId,
-//                                                         @RequestParam String feedId) {
-//        return ResponseEntity.ok(likesService.getTotalLikes(usersId, feedId));
-//    }
+    @GetMapping("/totalLikes")
+    public ResponseEntity<LikesResponseModel> totalLikes(@RequestParam String feedId) {
+        return ResponseEntity.ok(likesService.getTotalLikes(feedId));
+    }
+
 
 }

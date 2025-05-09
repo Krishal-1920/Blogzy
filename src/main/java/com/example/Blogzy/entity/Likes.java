@@ -21,7 +21,7 @@ public class Likes {
     private Feed feed;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "users_id")
     private Users users;
 
 
