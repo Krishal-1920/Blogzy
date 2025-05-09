@@ -25,8 +25,8 @@ public class CommentsController {
     }
 
 
-//    @GetMapping("/getComments")
-//    public ResponseEntity<List<CommentsFeedModel>> getComments(@RequestParam String feedId){
-//        return commentsService.getComments(feedId);
-//    }
+    @GetMapping("/getComments")
+    public ResponseEntity<List<CommentsFeedModel>> getComments(@RequestParam String feedId){
+        return commentsService.getComments(feedId);
+    }
 }

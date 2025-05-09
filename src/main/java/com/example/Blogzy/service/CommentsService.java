@@ -52,12 +52,22 @@ public class CommentsService {
 
 
 
-//    public ResponseEntity<List<CommentsFeedModel>> getComments(String feedId) {
-//        Feed feedById = feedRepository.findById(feedId)
-//                .orElseThrow(() -> new RuntimeException("Feed not found"));
-//
-//
-//    }
+    public ResponseEntity<List<CommentsFeedModel>> getComments(String feedId) {
+        Feed feedById = feedRepository.findById(feedId)
+                .orElseThrow(() -> new RuntimeException("Feed not found"));
+
+        List<Comments> comments = commentsRepository.findByFeed(feedById);
+        List<CommentsFeedModel> response = comments.stream()
+               .map(comment -> {
+                   CommentsFeedModel model = new CommentsFeedModel();
+                   model.setUsersname(comment.getUsers().getUsername());
+                   model.setContent(comment.getFeed().getContent());
+                   model.setComments(comment.getComments());
+                   return model;
+               })
+               .toList();
+        return ResponseEntity.ok(response);
+    }
 
 
 }
