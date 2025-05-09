@@ -29,6 +29,9 @@ public class Feed {
     @OneToMany(mappedBy = "feed", cascade = CascadeType.ALL)
     private List<Likes> Likes;
 
+    @OneToMany(mappedBy = "feed", cascade = CascadeType.ALL)
+    private List<Comments> comments;
+
     @PrePersist
     public void onCreate() {
         this.createdAt = LocalDateTime.now();

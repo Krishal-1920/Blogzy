@@ -49,4 +49,7 @@ public class Users {
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
     private List<Likes> likes;
 
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
+    private List<Comments> comments;
+
 }

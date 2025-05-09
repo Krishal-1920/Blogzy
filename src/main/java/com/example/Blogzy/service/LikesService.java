@@ -27,6 +27,7 @@ public class LikesService {
 
     private final LikesRepository likesRepository;
 
+
     @Transactional
     public LikesOnFeedModel likePost(String usersId, String feedId) {
         Users users = usersRepository.findById(usersId)
@@ -80,5 +81,4 @@ public class LikesService {
                .toList();
         return likedFeedModels;
     }
-
 }
