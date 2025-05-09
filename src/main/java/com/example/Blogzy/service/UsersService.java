@@ -30,7 +30,7 @@ public class UsersService {
     public List<UsersModel> viewProfile(String search) {
         List<Users> usersBySearch = usersRepository.searchUsers(search);
         return usersBySearch.stream()
-                .map(usersMapper::usersToUsersModel)
+                .map(users -> usersMapper.usersToUsersModel(users))
                 .toList();
     }
 
