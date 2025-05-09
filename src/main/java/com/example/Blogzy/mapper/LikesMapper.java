@@ -1,7 +1,7 @@
 package com.example.Blogzy.mapper;
 
 import com.example.Blogzy.entity.Likes;
-import com.example.Blogzy.model.LikesFeedModel;
+import com.example.Blogzy.model.LikesOnFeedModel;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -10,7 +10,7 @@ public interface LikesMapper {
 
     UsersMapper INSTANCE = Mappers.getMapper(UsersMapper.class);
 
-    LikesFeedModel feedLikeToFeedLikeModel(Likes Likes);
+    LikesOnFeedModel feedLikeToFeedLikeModel(Likes Likes);
 
-    Likes feedLikeModelToFeedLike(LikesFeedModel likesFeedModel);
+    Likes feedLikeModelToFeedLike(LikesOnFeedModel likesOnFeedModel);
 }

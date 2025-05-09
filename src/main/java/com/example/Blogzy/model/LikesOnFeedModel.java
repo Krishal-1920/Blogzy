@@ -3,10 +3,10 @@ package com.example.Blogzy.model;
 import lombok.Data;
 
 @Data
-public class LikesFeedModel {
+public class LikesOnFeedModel {
 
     private String likes;
-    private String feedId;
-    private String usersId;
+    private String content;
+    private String usersname;
 
 }

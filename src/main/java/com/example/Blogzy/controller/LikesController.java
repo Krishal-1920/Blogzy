@@ -1,11 +1,14 @@
 package com.example.Blogzy.controller;
 
-import com.example.Blogzy.model.LikesFeedModel;
+import com.example.Blogzy.model.LikedFeedModel;
+import com.example.Blogzy.model.LikesOnFeedModel;
 import com.example.Blogzy.model.LikesResponseModel;
 import com.example.Blogzy.service.LikesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -15,8 +18,8 @@ public class LikesController {
     private final LikesService likesService;
 
     @PostMapping("/likeAPost")
-    public ResponseEntity<LikesFeedModel> likes(@RequestParam String usersId,
-                                                @RequestParam String feedId){
+    public ResponseEntity<LikesOnFeedModel> likes(@RequestParam String usersId,
+                                                  @RequestParam String feedId){
         return ResponseEntity.ok(likesService.likePost(usersId, feedId));
     }
 
@@ -26,5 +29,8 @@ public class LikesController {
         return ResponseEntity.ok(likesService.getTotalLikes(feedId));
     }
 
-
+    @GetMapping("/getLikedFeeds/{usersId}")
+    public ResponseEntity<List<LikedFeedModel>> getLikedFeeds(@PathVariable String usersId) {
+        return ResponseEntity.ok(likesService.getLikedFeeds(usersId));
+    }
 }

@@ -12,4 +12,6 @@ public interface LikesRepository extends JpaRepository<Likes, String> {
     boolean existsByUsersUsersIdAndFeedFeedId(String usersId, String feedId);
 
     List<Likes> findByFeedFeedId(String feedId);
+
+    List<Likes> findByUsersUsersId(String usersId);
 }

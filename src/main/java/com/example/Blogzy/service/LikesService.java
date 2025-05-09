@@ -3,7 +3,8 @@ package com.example.Blogzy.service;
 import com.example.Blogzy.entity.Feed;
 import com.example.Blogzy.entity.Likes;
 import com.example.Blogzy.entity.Users;
-import com.example.Blogzy.model.LikesFeedModel;
+import com.example.Blogzy.model.LikedFeedModel;
+import com.example.Blogzy.model.LikesOnFeedModel;
 import com.example.Blogzy.model.LikesResponseModel;
 import com.example.Blogzy.repository.FeedRepository;
 import com.example.Blogzy.repository.LikesRepository;
@@ -12,6 +13,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 
@@ -26,7 +28,7 @@ public class LikesService {
     private final LikesRepository likesRepository;
 
     @Transactional
-    public LikesFeedModel likePost(String usersId, String feedId) {
+    public LikesOnFeedModel likePost(String usersId, String feedId) {
         Users users = usersRepository.findById(usersId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
@@ -45,10 +47,11 @@ public class LikesService {
 
         likesRepository.save(like);
 
-        LikesFeedModel model = new LikesFeedModel();
+        LikesOnFeedModel model = new LikesOnFeedModel();
         model.setLikes("like");
-        model.setFeedId(feedId);
-        model.setUsersId(usersId);
+        model.setContent(feed.getContent());
+        model.setUsersname(feed.getUsers().getUsername());
+
 
         return model;
     }
@@ -62,6 +65,20 @@ public class LikesService {
                 .toList();
 
         return new LikesResponseModel(usernames.size(), usernames);
+    }
+
+
+    public List<LikedFeedModel> getLikedFeeds(String usersId) {
+        List<Likes> likesList = likesRepository.findByUsersUsersId(usersId);
+        List<LikedFeedModel> likedFeedModels = likesList.stream()
+               .map(like -> {
+                   LikedFeedModel model = new LikedFeedModel();
+                   model.setUsername(like.getUsers().getUsername());
+                   model.setContent(Collections.singletonList(like.getFeed().getContent()));
+                   return model;
+               })
+               .toList();
+        return likedFeedModels;
     }
 
 }
