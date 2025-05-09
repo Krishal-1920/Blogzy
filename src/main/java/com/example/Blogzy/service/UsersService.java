@@ -8,6 +8,8 @@ import com.example.Blogzy.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -25,11 +27,13 @@ public class UsersService {
     }
 
 
-    public UsersModel viewProfile(String usersId) {
-        Users usersById = usersRepository.findById(usersId)
-                .orElseThrow(() -> new DataNotFoundException("User Not Found"));
-        return usersMapper.usersToUsersModel(usersById);
+    public List<UsersModel> viewProfile(String search) {
+        List<Users> usersBySearch = usersRepository.searchUsers(search);
+        return usersBySearch.stream()
+                .map(usersMapper::usersToUsersModel)
+                .toList();
     }
+
 
     public UsersModel updateUser(String usersId, UsersModel usersModel) {
         Users userById = usersRepository.findById(usersId)

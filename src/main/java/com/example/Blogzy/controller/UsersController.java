@@ -7,6 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.List;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -24,9 +27,9 @@ public class UsersController {
     }
 
 
-    @GetMapping("/viewProfile/{usersId}")
-    public ResponseEntity<UsersModel> getUser(@PathVariable String usersId){
-        return ResponseEntity.ok(usersService.viewProfile(usersId));
+    @GetMapping("/viewProfile")
+    public List<UsersModel> getUser(@RequestParam(required = false) String search){
+        return usersService.viewProfile(search);
     }
 
     @PutMapping("/updateProfile/{usersId}")
