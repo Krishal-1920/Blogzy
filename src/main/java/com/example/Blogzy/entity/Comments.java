@@ -24,5 +24,4 @@ public class Comments {
     @JoinColumn(name = "users_id")
     private Users users;
 
-
 }

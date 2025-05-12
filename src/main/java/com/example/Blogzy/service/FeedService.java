@@ -29,9 +29,6 @@ public class FeedService {
         // Find the user by email
         Users users = usersRepository.findById(usersId)
                 .orElseThrow(() -> new DataNotFoundException("User Not Found"));
-        if (users == null) {
-            throw new DataValidationException("User Not Found: ");
-        }
 
         // Create a new Feed entity and set the content
         Feed feed = new Feed();

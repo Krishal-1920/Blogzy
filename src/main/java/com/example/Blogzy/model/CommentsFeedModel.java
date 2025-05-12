@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class CommentsFeedModel {
 
-    private String usersname;
+    private String username;
     private String content;
     private String comments;
 

@@ -43,7 +43,7 @@ public class CommentsService {
 
         // Build the response model.
         CommentsFeedModel response = new CommentsFeedModel();
-        response.setUsersname(user.getUsername());
+        response.setUsername(user.getUsername());
         response.setContent(feed.getContent());
         response.setComments(request.getComment());
 
@@ -60,7 +60,7 @@ public class CommentsService {
         List<CommentsFeedModel> response = comments.stream()
                .map(comment -> {
                    CommentsFeedModel model = new CommentsFeedModel();
-                   model.setUsersname(comment.getUsers().getUsername());
+                   model.setUsername(comment.getUsers().getUsername());
                    model.setContent(comment.getFeed().getContent());
                    model.setComments(comment.getComments());
                    return model;

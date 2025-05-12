@@ -7,6 +7,6 @@ public class LikesOnFeedModel {
 
     private String likes;
     private String content;
-    private String usersname;
+    private String username;
 
 }

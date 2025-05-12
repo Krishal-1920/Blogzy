@@ -53,8 +53,7 @@ public class LikesService {
         LikesOnFeedModel model = new LikesOnFeedModel();
         model.setLikes("like");
         model.setContent(feed.getContent());
-        model.setUsersname(feed.getUsers().getUsername());
-
+        model.setUsername(feed.getUsers().getUsername());
 
         return model;
     }
@@ -69,7 +68,6 @@ public class LikesService {
 
         return new LikesResponseModel(usernames.size(), usernames);
     }
-
 
 
     public List<LikedFeedModel> getLikedFeeds(String usersId) {
