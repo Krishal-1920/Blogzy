@@ -29,4 +29,7 @@ public class Comments {
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
     private List<Replies> replies;
 
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
+    private List<CommentLike> commentLikes;
+
 }

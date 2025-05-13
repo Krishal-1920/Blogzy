@@ -43,6 +43,8 @@ public class Users {
     @Column(name = "bio")
     private String bio;
 
+
+    // Mapping
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
     private List<Feed> feeds;
 
@@ -54,4 +56,7 @@ public class Users {
 
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
     private List<Replies> replies;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<CommentLike> commentLikes;
 }

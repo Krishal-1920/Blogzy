@@ -22,6 +22,8 @@ public class Feed {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
+
+    // Mapping
     @ManyToOne
     @JoinColumn(name = "users_id")
     private Users users;
@@ -35,6 +37,8 @@ public class Feed {
     @OneToMany(mappedBy = "feed", cascade = CascadeType.ALL)
     private List<Replies> replies;
 
+
+    // PrePersist
     @PrePersist
     public void onCreate() {
         this.createdAt = LocalDateTime.now();

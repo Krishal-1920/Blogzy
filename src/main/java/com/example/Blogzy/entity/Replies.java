@@ -21,6 +21,7 @@ public class Replies {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
+    // Mapping
     @ManyToOne
     @JoinColumn(name = "feed_comment_id", nullable = false)
     private Comments comment;
@@ -33,6 +34,7 @@ public class Replies {
     @JoinColumn(name = "users_id", nullable = false)
     private Users users;
 
+    //PrePersist
     @PrePersist
     public void onCreate() {
         this.createdAt = LocalDateTime.now();

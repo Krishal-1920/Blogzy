@@ -16,6 +16,7 @@ public class Likes {
     @Column(name = "likes")
     private String likes;
 
+    // Mapping
     @ManyToOne
     @JoinColumn(name = "feed_id")
     private Feed feed;
