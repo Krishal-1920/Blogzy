@@ -24,11 +24,10 @@ public class FeedService {
 
     private final FeedMapper feedMapper;
 
-    public ParentFeedModel createContent(String usersId, FeedModel feedModel) {
+    public ParentFeedModel createContent(String email, FeedModel feedModel) {
 
         // Find the user by email
-        Users users = usersRepository.findById(usersId)
-                .orElseThrow(() -> new DataNotFoundException("User Not Found"));
+        Users users = usersRepository.findByEmail(email);
 
         // Create a new Feed entity and set the content
         Feed feed = new Feed();

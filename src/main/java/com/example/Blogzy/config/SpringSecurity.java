@@ -29,6 +29,8 @@ public class SpringSecurity {
                         .requestMatchers("/users/login", "/users/signUp").permitAll()
 //                        .requestMatchers( "/users/search").hasRole("ADMIN")
                         .requestMatchers("/users/viewProfiles", "/users/updateProfile", "/users/deleteProfile").authenticated()
+                        .requestMatchers("/feed/createContent", "/feed/getAll").authenticated()
+                        .requestMatchers("/feed/createContent", "/feed/getAll").authenticated()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
