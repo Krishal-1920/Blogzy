@@ -24,4 +24,5 @@ public interface UsersRepository extends JpaRepository<Users, String> {
     List<Users> searchUsers(@Param("search") String search);
 
 
+    Users findByEmail(String email);
 }

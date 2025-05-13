@@ -1,11 +1,11 @@
 package com.example.Blogzy.service;
 
 import com.example.Blogzy.entity.Users;
-import com.example.Blogzy.exceptions.DataNotFoundException;
 import com.example.Blogzy.mapper.UsersMapper;
 import com.example.Blogzy.model.UsersModel;
 import com.example.Blogzy.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,9 +19,11 @@ public class UsersService {
 
     private final UsersMapper usersMapper;
 
+    private final PasswordEncoder passwordEncoder;
 
     public UsersModel newUser(UsersModel usersModel){
         Users addUser = usersMapper.usersModelToUsers(usersModel);
+        addUser.setPassword(passwordEncoder.encode(usersModel.getPassword()));
         addUser = usersRepository.save(addUser);
         return usersMapper.usersToUsersModel(addUser);
     }
@@ -35,18 +37,17 @@ public class UsersService {
     }
 
 
-    public UsersModel updateUser(String usersId, UsersModel usersModel) {
-        Users userById = usersRepository.findById(usersId)
-                .orElseThrow(() -> new DataNotFoundException("User Not Found"));
+    public UsersModel updateUser(String email, UsersModel usersModel) {
+        Users userById = usersRepository.findByEmail(email);
         Users users = usersMapper.updateUsersModel(usersModel, userById);
+        users.setPassword(passwordEncoder.encode(usersModel.getPassword()));
         users = usersRepository.save(users);
         return usersMapper.usersToUsersModel(users);
     }
 
 
     public void deleteUser(String userId) {
-        Users user = usersRepository.findById(userId)
-                .orElseThrow(() -> new DataNotFoundException("User not found"));
+        Users user = usersRepository.findByEmail(userId);
         usersRepository.delete(user);
     }
 
