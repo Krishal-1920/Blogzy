@@ -52,4 +52,6 @@ public class Users {
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
     private List<Comments> comments;
 
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
+    private List<Replies> replies;
 }

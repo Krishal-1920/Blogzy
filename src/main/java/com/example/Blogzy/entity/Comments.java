@@ -3,6 +3,8 @@ package com.example.Blogzy.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Data
 @Table(name = "feed_comments")
@@ -23,5 +25,8 @@ public class Comments {
     @ManyToOne
     @JoinColumn(name = "users_id")
     private Users users;
+
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
+    private List<Replies> replies;
 
 }
