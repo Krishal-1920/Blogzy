@@ -31,7 +31,7 @@ public class CommentLikeService {
             Comments comment = commentsRepository.findById(feedCommentId)
                     .orElseThrow(() -> new DataNotFoundException("Comment not found"));
 
-            boolean alreadyLiked = commentLikeRepository.existsByUserAndComment(user, comment);
+            boolean alreadyLiked = commentLikeRepository.existsByUserUsersIdAndCommentFeedCommentsId(userId, feedCommentId);
             if (alreadyLiked) {
                 return new CommentLikeResponseModel("You already liked this comment",
                         commentLikeRepository.countByComment(comment));
@@ -50,7 +50,7 @@ public class CommentLikeService {
             Replies reply = repliesRepository.findById(replyId)
                     .orElseThrow(() -> new DataNotFoundException("Reply not found"));
 
-            boolean alreadyLiked = commentLikeRepository.existsByUserAndReply(user, reply);
+            boolean alreadyLiked = commentLikeRepository.existsByUserUsersIdAndReplyReplyId(userId, replyId);
             if (alreadyLiked) {
                 return new CommentLikeResponseModel("You already liked this reply",
                         commentLikeRepository.countByReply(reply));
