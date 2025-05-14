@@ -23,15 +23,17 @@ public class CommentLikeService {
     private final RepliesRepository repliesRepository;
     private final CommentLikeRepository commentLikeRepository;
 
-    public CommentLikeResponseModel handleLike(String userId, String feedCommentId, String replyId) {
-        Users user = usersRepository.findById(userId)
+    public CommentLikeResponseModel handleLike(String email, String feedCommentId, String replyId) {
+        Users userId = usersRepository.findByEmail(email);
+
+        Users user = usersRepository.findById(userId.getUsersId())
                 .orElseThrow(() -> new DataNotFoundException("User not found"));
 
         if (feedCommentId != null) {
             Comments comment = commentsRepository.findById(feedCommentId)
                     .orElseThrow(() -> new DataNotFoundException("Comment not found"));
 
-            boolean alreadyLiked = commentLikeRepository.existsByUserUsersIdAndCommentFeedCommentsId(userId, feedCommentId);
+            boolean alreadyLiked = commentLikeRepository.existsByUserUsersIdAndCommentFeedCommentsId(user.getUsersId(), feedCommentId);
             if (alreadyLiked) {
                 return new CommentLikeResponseModel("You already liked this comment",
                         commentLikeRepository.countByComment(comment));
@@ -50,7 +52,7 @@ public class CommentLikeService {
             Replies reply = repliesRepository.findById(replyId)
                     .orElseThrow(() -> new DataNotFoundException("Reply not found"));
 
-            boolean alreadyLiked = commentLikeRepository.existsByUserUsersIdAndReplyReplyId(userId, replyId);
+            boolean alreadyLiked = commentLikeRepository.existsByUserUsersIdAndReplyReplyId(user.getUsersId(), replyId);
             if (alreadyLiked) {
                 return new CommentLikeResponseModel("You already liked this reply",
                         commentLikeRepository.countByReply(reply));
