@@ -23,18 +23,17 @@ public class RepliesService {
 
     private final RepliesRepository repliesRepository;
 
-    private final RepliesMapper repliesMapper;
-
     private final CommentsRepository commentsRepository;
 
     private final UsersRepository usersRepository;
 
-    public List<ReplyResponseModel> repliedToPost(String feedCommentsId, String userId, ReplyRequestModel reply) {
+    public List<ReplyResponseModel> repliedToPost(String feedCommentsId, String email, ReplyRequestModel reply) {
 
         Comments comments = commentsRepository.findById(feedCommentsId)
                 .orElseThrow(() -> new DataNotFoundException("There is no such Id To comment"));
 
-        Users users = usersRepository.findById(userId)
+        Users userId = usersRepository.findByEmail(email);
+        Users users = usersRepository.findById(userId.getUsersId())
                 .orElseThrow(() -> new DataNotFoundException("User Not found"));
 
         Feed feed = comments.getFeed();
