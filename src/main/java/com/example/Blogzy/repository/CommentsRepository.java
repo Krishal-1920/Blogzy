@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface CommentsRepository extends JpaRepository<Comments, String> {
 
-    List<Comments> findByFeed(Feed feedById);
+    List<Comments> findByFeedFeedId(String feedById);
 }

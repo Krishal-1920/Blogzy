@@ -48,7 +48,7 @@ public class RepliesService {
 
         // For Output
         List<Replies> allReplies = repliesRepository.findByComment_FeedCommentsIdOrderByCreatedAtAsc(feedCommentsId);
-        // Go to Comment entity from Replies entity -> the find feed_comment_id -> then order by
+        // Here it will Go to Comment entity from Replies entity -> then find feed_comment_id -> then order by
 
 
         return allReplies.stream()

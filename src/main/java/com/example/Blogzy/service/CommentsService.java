@@ -55,21 +55,24 @@ public class CommentsService {
 
 
     public ResponseEntity<List<CommentsFeedModel>> getComments(String feedId) {
-        Feed feedById = feedRepository.findById(feedId)
-                .orElseThrow(() -> new RuntimeException("Feed not found"));
+        Feed feed = feedRepository.findById(feedId)
+                .orElseThrow(() -> new DataNotFoundException("Feed not found"));
 
-        List<Comments> comments = commentsRepository.findByFeed(feedById);
+        List<Comments> comments = commentsRepository.findByFeedFeedId(feedId);
+
         List<CommentsFeedModel> response = comments.stream()
-               .map(comment -> {
-                   CommentsFeedModel model = new CommentsFeedModel();
-                   model.setUsername(comment.getUsers().getUsername());
-                   model.setContent(comment.getFeed().getContent());
-                   model.setComments(comment.getComments());
-                   return model;
-               })
-               .toList();
+                .map(comment -> {
+                    CommentsFeedModel model = new CommentsFeedModel();
+                    model.setUsername(comment.getUsers().getUsername());
+                    model.setContent(comment.getComments());
+                    model.setComments(comment.getComments());
+                    return model;
+                })
+                .toList();
+
         return ResponseEntity.ok(response);
     }
+
 
 
     public ResponseEntity<String> deleteComment(String commentId) {
