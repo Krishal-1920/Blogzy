@@ -27,4 +27,12 @@ public class RepliesController {
         return ResponseEntity.ok(repliesService.repliedToPost(feedCommentsId, authenticatedEmail, reply));
     }
 
+
+    @DeleteMapping("/deleteReply")
+    public ResponseEntity<String> deleteReply(@RequestHeader("Authorization") String tokenHeader,
+                                              @RequestParam String replyId){
+        String authenticatedEmail = jwtUtil.extractUsername(tokenHeader);
+        return repliesService.deleteReply(replyId);
+    }
+
 }

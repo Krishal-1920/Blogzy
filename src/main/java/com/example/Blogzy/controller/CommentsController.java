@@ -34,4 +34,12 @@ public class CommentsController {
         String authenticatedEmail = jwtUtil.extractUsername(tokenHeader);
         return commentsService.getComments(feedId);
     }
+
+
+    @DeleteMapping("/deleteComment")
+    public ResponseEntity<String> deleteComment(@RequestHeader("Authorization") String tokenHeader,
+                                                @RequestParam String commentId){
+        String authenticatedEmail = jwtUtil.extractUsername(tokenHeader);
+        return commentsService.deleteComment(commentId);
+    }
 }

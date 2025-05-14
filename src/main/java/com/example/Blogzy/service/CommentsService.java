@@ -72,4 +72,11 @@ public class CommentsService {
     }
 
 
+    public ResponseEntity<String> deleteComment(String commentId) {
+        Comments comment = commentsRepository.findById(commentId)
+               .orElseThrow(() -> new RuntimeException("Comment not found"));
+
+        commentsRepository.delete(comment);
+        return ResponseEntity.ok("Comment deleted successfully");
+    }
 }

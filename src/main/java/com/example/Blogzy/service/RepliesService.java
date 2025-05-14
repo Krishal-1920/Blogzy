@@ -12,6 +12,7 @@ import com.example.Blogzy.repository.CommentsRepository;
 import com.example.Blogzy.repository.RepliesRepository;
 import com.example.Blogzy.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -60,5 +61,14 @@ public class RepliesService {
     }
 
 
+    public ResponseEntity<String> deleteReply(String replyId) {
 
+        Replies replies = repliesRepository.findById(replyId)
+               .orElseThrow(() -> new DataNotFoundException("Reply Not found"));
+
+        repliesRepository.delete(replies);
+
+        return ResponseEntity.ok("Reply deleted successfully");
+
+    }
 }
