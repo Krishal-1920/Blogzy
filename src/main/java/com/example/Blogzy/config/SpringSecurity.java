@@ -32,6 +32,7 @@ public class SpringSecurity {
                         .requestMatchers("/feed/createContent", "/feed/getAll").authenticated()
                         .requestMatchers("/feedLikes/likeAPost", "/feedLikes/totalLikes", "/feedLikes/getLikedFeeds").authenticated()
                         .requestMatchers("/feedComments/commentOnPost", "/feedComments/getComments").authenticated()
+                        .requestMatchers("/replies/replyToComment").authenticated()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
