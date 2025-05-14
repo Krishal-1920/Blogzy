@@ -31,9 +31,8 @@ public class LikesService {
 
 
     @Transactional
-    public LikesOnFeedModel likePost(String usersId, String feedId) {
-        Users users = usersRepository.findById(usersId)
-                .orElseThrow(() -> new DataNotFoundException("User not found"));
+    public LikesOnFeedModel likePost(String email, String feedId) {
+        Users users = usersRepository.findByEmail(email);
 
         Feed feed = feedRepository.findById(feedId)
                 .orElseThrow(() -> new DataNotFoundException("Feed not found"));
@@ -70,12 +69,15 @@ public class LikesService {
     }
 
 
-    public List<LikedFeedModel> getLikedFeeds(String usersId) {
-        List<Likes> likesList = likesRepository.findByUsersUsersId(usersId);
+    public List<LikedFeedModel> getLikedFeeds(String email) {
+        Users users = usersRepository.findByEmail(email);
+
+        List<Likes> likesList = likesRepository.findByUsersUsersId(users.getUsersId());
+
         List<LikedFeedModel> likedFeedModels = likesList.stream()
                .map(like -> {
                    LikedFeedModel model = new LikedFeedModel();
-                   model.setUsername(like.getUsers().getUsername());
+                   model.setUsername(like.getFeed().getUsers().getUsername());
                    model.setContent(Collections.singletonList(like.getFeed().getContent()));
                    return model;
                })

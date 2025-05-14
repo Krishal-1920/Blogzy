@@ -30,7 +30,7 @@ public class SpringSecurity {
 //                        .requestMatchers( "/users/search").hasRole("ADMIN")
                         .requestMatchers("/users/viewProfiles", "/users/updateProfile", "/users/deleteProfile").authenticated()
                         .requestMatchers("/feed/createContent", "/feed/getAll").authenticated()
-                        .requestMatchers("/feed/createContent", "/feed/getAll").authenticated()
+                        .requestMatchers("/feedLikes/likeAPost", "/feedLikes/totalLikes", "/feedLikes/getLikedFeeds").authenticated()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
