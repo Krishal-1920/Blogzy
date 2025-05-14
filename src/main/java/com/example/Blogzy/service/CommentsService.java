@@ -1,5 +1,6 @@
 package com.example.Blogzy.service;
 
+
 import com.example.Blogzy.entity.Comments;
 import com.example.Blogzy.entity.Feed;
 import com.example.Blogzy.entity.Users;
@@ -26,10 +27,11 @@ public class CommentsService {
 
     private final FeedRepository feedRepository;
 
-    public ResponseEntity<CommentsFeedModel> postAComment(String userId, String feedId,
+    public ResponseEntity<CommentsFeedModel> postAComment(String email, String feedId,
                                                           CommentsRequestModel request) {
         // Fetch user and feed from the database.
-        Users user = usersRepository.findById(userId)
+        Users userId = usersRepository.findByEmail(email);
+        Users user = usersRepository.findById(userId.getUsersId())
                 .orElseThrow(() -> new DataNotFoundException("User not found"));
         Feed feed = feedRepository.findById(feedId)
                 .orElseThrow(() -> new DataNotFoundException("Feed not found"));

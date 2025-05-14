@@ -3,6 +3,7 @@ package com.example.Blogzy.controller;
 import com.example.Blogzy.model.CommentsFeedModel;
 import com.example.Blogzy.model.CommentsRequestModel;
 import com.example.Blogzy.service.CommentsService;
+import com.example.Blogzy.utils.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,17 +17,21 @@ public class CommentsController {
 
     private final CommentsService commentsService;
 
+    private final JwtUtil jwtUtil;
 
     @PostMapping("/commentOnPost")
-    public ResponseEntity<CommentsFeedModel> postAComment(@RequestParam String usersId,
+    public ResponseEntity<CommentsFeedModel> postAComment(@RequestHeader("Authorization") String tokenHeader,
                                                           @RequestParam String feedId,
                                                           @RequestBody CommentsRequestModel comment){
-        return commentsService.postAComment(usersId, feedId, comment);
+        String authenticatedEmail = jwtUtil.extractUsername(tokenHeader);
+        return commentsService.postAComment(authenticatedEmail, feedId, comment);
     }
 
 
     @GetMapping("/getComments")
-    public ResponseEntity<List<CommentsFeedModel>> getComments(@RequestParam String feedId){
+    public ResponseEntity<List<CommentsFeedModel>> getComments(@RequestHeader("Authorization") String tokenHeader,
+                                                               @RequestParam String feedId){
+        String authenticatedEmail = jwtUtil.extractUsername(tokenHeader);
         return commentsService.getComments(feedId);
     }
 }
